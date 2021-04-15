@@ -29,4 +29,14 @@ class BlogController extends AbstractController
     ]
     );
     }
+
+    /**
+     * @Route("/blog/43", name="detail_art")
+     * 
+     */
+
+    public function detailArticle(){
+        return $this->render('blog/detail.html.twig');
+    }
+
 }
