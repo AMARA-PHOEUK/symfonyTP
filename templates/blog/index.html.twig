@@ -4,25 +4,18 @@
 
 {% block body %}
     <section>
-        <article> 
-            <h2>titre article</h2>
-            <div class="metinfo">écrit le XX/XX/XXXX ) HH:MM</div>
-            <img src="http://placehold.it/400x200" alt="">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam corrupti atque labore nostrum, delectus ad voluptatum quo rem nulla voluptatibus rerum, a voluptate tempore repudiandae minus dignissimos corporis veritatis! Facere!</p>
-            <a href="{{ path('detail_art') }}" class="btn btn_primary">lire article</a>
-            
-        </article>
-    </section>
-    <section>
-        <article> 
-            <h2>titre article</h2>
-            <div class="metinfo">écrit le XX/XX/XXXX ) HH:MM</div>
-            <img src="http://placehold.it/400x200" alt="">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam corrupti atque labore nostrum, delectus ad voluptatum quo rem nulla voluptatibus rerum, a voluptate tempore repudiandae minus dignissimos corporis veritatis! Facere!</p>
-            <a href="{{ path('detail_art') }}" class="btn btn_primary">lire article</a>
+        {% for article in articles %}
+            <h2> {{ article.title }}   </h2>
+            <div class="metainfo">écrit le {{article.createdAt | date('d/m/Y à H:i')}} </div>
+            <img src="{{ article.image}}" alt="">
+            <p> {{ article.content}}</p>
+            <a href="{{ path('detail_art')}}" class="btn btn-primary"></a>
 
-        </article>
+        {% endfor %} %}
+
+
     </section>
+
 {% endblock %}
 
 

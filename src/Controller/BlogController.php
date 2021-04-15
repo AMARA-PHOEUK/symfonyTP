@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,8 +14,11 @@ class BlogController extends AbstractController
      */
     public function index(): Response
     {
+        // getDoctrine = obtenir une instance (comme le $this)
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
         return $this->render('blog/index.html.twig', [
-            'controller_name' => 'BlogController',
+            'articles'=>$articles,
         ]);
     
     }
