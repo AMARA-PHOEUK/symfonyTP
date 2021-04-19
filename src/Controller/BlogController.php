@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,12 +36,19 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/43", name="detail_art")
+     * @Route("/blog/{id}", name="detail_art")
      * 
      */
 
-    public function detailArticle(){
-        return $this->render('blog/detail.html.twig');
+    public function detailArticle($id){
+        // ouvrir repository des articles
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        // recup article id
+        $article = $repo->find($id);
+        // géréner la vue
+        return $this->render('blog/detail.html.twig',[
+            'article' => $article 
+        ]);
     }
 
 }

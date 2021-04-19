@@ -9,7 +9,7 @@
             <div class="metainfo">écrit le {{article.createdAt | date('d/m/Y à H:i')}} </div>
             <img src="{{ article.image}}" alt="">
             <p> {{ article.content}}</p>
-            <a href="{{ path('detail_art')}}" class="btn btn-primary"></a>
+            <a href="{{ path('detail_art', {'id': article.id}) }}" class="btn btn-primary"> Lire</a>
 
         {% endfor %} %}
 
