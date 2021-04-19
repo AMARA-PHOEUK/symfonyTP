@@ -45,10 +45,9 @@ class BlogController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Article::class);
         // recup article id
         $article = $repo->find($id);
-        // géréner la vue
-        return $this->render('blog/detail.html.twig',[
-            'article' => $article 
-        ]);
+        // géréner la vue . ligne 50 on ajoute un tableau en paramètre
+        return $this->render('blog/detail.html.twig',
+        ['article' => $article ]);
     }
 
 }
