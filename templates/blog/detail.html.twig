@@ -7,12 +7,9 @@
     <article> 
     {# on récupère le titre de l'article #}
         <h2> {{ article.title }}</h2>
-        <div class="metinfo">écrit le {{ article.createdAt | date(d>>/m/Y)}}</div>
-        <img src="http://placehold.it/400x200" alt="">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam corrupti atque labore nostrum, delectus ad voluptatum quo rem nulla voluptatibus rerum, a voluptate tempore repudiandae minus dignissimos corporis veritatis! Facere!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem inventore neque earum facere unde quaerat, quas ea obcaecati?</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem inventore neque earum facere unde quaerat, quas ea obcaecati?</p>
-
+        <div class="metainfo">écrit le {{ article.createdAt | date("d/m/Y à H:i")}}</div>
+        <img src="{{ article.image }}" alt="">
+        <p>{{article.content}} </p>
     </article>
 
 {% endblock %}
