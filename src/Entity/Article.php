@@ -4,7 +4,10 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
+// afin d'assurer un peu de sécurité, on va rajouter des process de sécurité 
+// les contrôles sont fait côté serveur, ce qui assure une plus grand sécurité
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
@@ -19,16 +22,22 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=10, minMessage="Veuillez Taper un message de 10 caractères minimum", 
+     * max=255, maxMessage="Vous ne pouvez pas taper un message plus grand que 255 caractères")
+     * @Assert\NotNull
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=10)
+     * @Assert\NotNull
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(message="Veuillez entrer une url valide")
      */
     private $image;
 
@@ -89,5 +98,7 @@ class Article
 
         return $this;
     }
+
+
 }
 

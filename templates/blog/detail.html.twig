@@ -10,6 +10,8 @@
         <div class="metainfo">écrit le {{ article.createdAt | date("d/m/Y à H:i")}}</div>
         <img src="{{ article.image }}" alt="">
         <p>{{article.content}} </p>
+        <a class="btn btn-danger" href="{{ path('delete_art', {'id': article.id}) }}">EFFACER</a>
+        <a class="btn btn-info" href="{{ path('edit_article',{'id': article.id}) }}">Modifier</a>
     </article>
 
 {% endblock %}

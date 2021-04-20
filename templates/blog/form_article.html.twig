@@ -1,8 +1,25 @@
 {% extends "base.html.twig" %}
 
-{% block title %} Mon blog: créer un nouvel article {% endblock %}
+{% block title %}
+	Mon blog: créer un nouvel article
+{% endblock %}
 
 {% block body %}
- <h2>Création d'un nouvel article</h2>
-    {{ form(formArticle)}}
+	<h2>Création d'un nouvel article</h2>
+	{#{{ form(formArticle)}}#}
+
+
+	{{ form_start(formArticle) }}
+
+	{# {{ form_widget(formArticle) }} #}
+
+	{{ form_row(formArticle.title, {'attr':{'placeholder':"Entrez le titre de l'article"}}) }}
+	{{ form_row(formArticle.content, {'attr':{'placeholder':"Entrez le contenu de l'article"}}) }}
+	{{ form_row(formArticle.image, {'attr':{'placeholder':"Entrez l'url de l'image"}}) }}
+
+    <button type="submit" class="btn btn-primary">Enregistrer l'article</button>
+
+	{{ form_end(formArticle) }}
+
+
 {% endblock %}
