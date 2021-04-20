@@ -1,11 +1,21 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-	Mon blog: créer un nouvel article
+	Mon blog:
+	{% if mode %} 
+		<h2>Modif</h2>
+	{% else %}
+		<h2>Creation</h2>
+	{% endif %}
 {% endblock %}
 
 {% block body %}
-	<h2>Création d'un nouvel article</h2>
+	{% if mode %} 
+		<h2>Modification article</h2>
+	{% else %}
+		<h2>Creation article</h2>
+	{% endif %}
+	{# <h2>{{ operation }}</h2> #}
 	{#{{ form(formArticle)}}#}
 
 
@@ -17,7 +27,13 @@
 	{{ form_row(formArticle.content, {'attr':{'placeholder':"Entrez le contenu de l'article"}}) }}
 	{{ form_row(formArticle.image, {'attr':{'placeholder':"Entrez l'url de l'image"}}) }}
 
-    <button type="submit" class="btn btn-primary">Enregistrer l'article</button>
+	{%	if mode %}
+    <button type="submit" class="btn btn-primary">Modifier l'article</button>
+
+	{% else %}
+
+    <button type="submit" class="btn btn-primary">Creer l'article</button>
+	{% endif %}
 
 	{{ form_end(formArticle) }}
 

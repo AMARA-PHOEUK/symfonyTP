@@ -55,6 +55,9 @@ class BlogController extends AbstractController
 // résultat, on peut afficher un formulaire de modif avec les champs prérempli ou un nouveau formulaire
         if (!$article){
             $article = new Article(); //on doit utiliser cette instruction que si article=null 
+            $operation = "Création article";
+        } else {
+            $operation = "Edition article";
         }    
         // $form = $this->createFormBuilder($article)
         // construction à la main du formulaire:
@@ -79,7 +82,7 @@ class BlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             // if (!$article->getId()) contrôle si l'Id existe déjà dans la BDD
-            // si oui, alors on est face à un update
+            // si oui, alors on est face à une update
             if (!$article->getId()){
                 $article->setCreatedAt(new \Datetime());
             }
@@ -89,7 +92,10 @@ class BlogController extends AbstractController
         }
         return $this->render(
             'blog/form_article.html.twig',
-            ['formArticle' => $form->createView()]
+            ['formArticle' => $form->createView(),
+            'operation' => $operation,
+            'mode' => $article->getId() !== null
+            ]
         );
     }
 
