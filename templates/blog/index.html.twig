@@ -6,13 +6,13 @@
     <section>
         {% for article in articles %}
             <h2> {{ article.title }}   </h2>
-            <div class="metainfo">écrit le {{article.createdAt | date('d/m/Y à H:i')}} </div>
+            <div class="metainfo">écrit le {{article.createdAt | date('d/m/Y à H:i')}} dans la catégorie est : {{ article.category.name }} </div>
+
             <img src="{{ article.image}}" alt="">
              {{ article.content | raw}}
             <a href="{{ path('detail_art', {'id': article.id}) }}" class="btn btn-primary"> Lire</a>
 
         {% endfor %}
-
 
     </section>
 

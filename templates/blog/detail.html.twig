@@ -7,11 +7,25 @@
     <article> 
     {# on récupère le titre de l'article #}
         <h2> {{ article.title }}</h2>
-        <div class="metainfo">écrit le {{ article.createdAt | date("d/m/Y à H:i")}}</div>
+        <div class="metainfo">écrit le {{ article.createdAt | date("d/m/Y à H:i")}} dans la catégorie est : {{ article.category.name }}</div>
         <img src="{{ article.image }}" alt="">
         {{ article.content | raw }}
         <a class="btn btn-danger" href="{{ path('delete_art', {'id': article.id}) }}">EFFACER</a>
         <a class="btn btn-info" href="{{ path('edit_article',{'id': article.id}) }}">Modifier</a>
     </article>
+<hr>
+<section id="commentaire">
+    <h2>Les commentaires</h2>
+    {% for comment in article.comments %}
+        <div class="comment">
+            <div class="col-3">
+                {{ comment.author }} (<small> {{ comment.createdAt  | date('d/m/Y à H:i') }}</small>)
+            </div>
+            <div class="col">
+            {{ comment.content | raw }}
+            </div>
+        </div>
+    {% endfor %}
+</section>
 
 {% endblock %}
