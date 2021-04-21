@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	<h2>ajouter un commentaire</h2>
+{% endblock %}
+
+{% block body %}
+	<h2>Ajouter Commentaire</h2>
+
+
+	{{ form_start(formComment) }}
+	{{ form_row(formComment.author, {'attr':{'placeholder':"Entrez votre nom"}}) }}
+	{{ form_row(formComment.content, {'attr':{'placeholder':"Entrez le contenu du commentaire"}}) }}
+	<button type="submit" class="btn btn-primary">Poster votre commentaire</button>
+	{{ form_end(formComment) }}
+
+
+{% endblock %}

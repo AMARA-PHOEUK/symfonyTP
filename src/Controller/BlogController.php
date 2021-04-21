@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,17 +50,17 @@ class BlogController extends AbstractController
      * @Route("/blog/{id}/edit", name="edit_article")
      */
 
-    public function updateAndAddNewArticle(Article $article=null, Request $request, EntityManagerInterface $manager)
+    public function updateAndAddNewArticle(Article $article = null, Request $request, EntityManagerInterface $manager)
     {
-// on peut ajouter un article et modifier: ajouter une nouvelle route pour l'update
-// Attention:  on va affecter une valeur par défaut ($article=null) à $article (non défini) 
-// résultat, on peut afficher un formulaire de modif avec les champs prérempli ou un nouveau formulaire
-        if (!$article){
+        // on peut ajouter un article et modifier: ajouter une nouvelle route pour l'update
+        // Attention:  on va affecter une valeur par défaut ($article=null) à $article (non défini) 
+        // résultat, on peut afficher un formulaire de modif avec les champs prérempli ou un nouveau formulaire
+        if (!$article) {
             $article = new Article(); //on doit utiliser cette instruction que si article=null 
             $operation = "Création article";
         } else {
             $operation = "Edition article";
-        }    
+        }
         // $form = $this->createFormBuilder($article)
         // construction à la main du formulaire:
         // ->add('title', TextareaType::class)
@@ -80,10 +82,10 @@ class BlogController extends AbstractController
 
         /* vérifier si le formulaire est submit && valide = traitement*/
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             // if (!$article->getId()) contrôle si l'Id existe déjà dans la BDD
             // si oui, alors on est face à une update
-            if (!$article->getId()){
+            if (!$article->getId()) {
                 $article->setCreatedAt(new \Datetime());
             }
             $manager->persist($article);
@@ -92,9 +94,10 @@ class BlogController extends AbstractController
         }
         return $this->render(
             'blog/form_article.html.twig',
-            ['formArticle' => $form->createView(),
-            'operation' => $operation,
-            'mode' => $article->getId() !== null
+            [
+                'formArticle' => $form->createView(),
+                'operation' => $operation,
+                'mode' => $article->getId() !== null
             ]
         );
     }
@@ -128,5 +131,33 @@ class BlogController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('blog');
+    }
+
+    /**
+     * @Route("/blog/article/comment/add/{id}", name = "add_comment")
+     */
+    public function addComment(Article $article, Request $request, EntityManagerInterface $manager)
+    {
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setArticle($article) //On associe le commentaire à l'article
+                ->setCreatedAt(new \DateTime()); // on donne une date au commentaire
+            $manager->persist($comment);
+            $manager->flush();
+            return $this->redirectToRoute('detail_art', [
+                'id' => $article->getId()
+            ]);
+        }
+
+
+        return $this->render('blog/form_comment.html.twig', [
+            'formComment' => $form->createView() //génération de la page qui affiche le commentaire
+        ]);
     }
 }
