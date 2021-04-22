@@ -8,8 +8,8 @@
 
 
 	{{ form_start(formComment) }}
-	{{ form_row(formComment.author, {'attr':{'placeholder':"Entrez votre nom"}}) }}
-	{{ form_row(formComment.content, {'attr':{'placeholder':"Entrez le contenu du commentaire"}}) }}
+	{{ form_row(formComment.author, {'label' :"Votre nom", 'attr':{'placeholder':"Entrez votre nom"}}) }}
+	{{ form_row(formComment.content, {'label' :"Votre commentaire", 'attr':{'placeholder':"Entrez le contenu du commentaire"}}) }}
 	<button type="submit" class="btn btn-primary">Poster votre commentaire</button>
 	{{ form_end(formComment) }}
 

@@ -23,9 +23,10 @@
 
 	{# {{ form_widget(formArticle) }} #}
 
-	{{ form_row(formArticle.title, {'attr':{'placeholder':"Entrez le titre de l'article"}}) }}
-	{{ form_row(formArticle.content, {'attr':{'placeholder':"Entrez le contenu de l'article"}}) }}
-	{{ form_row(formArticle.image, {'attr':{'placeholder':"Entrez l'url de l'image"}}) }}
+	{{ form_row(formArticle.title, {'label': "Titre de l'article", 'attr':{'placeholder':"Entrez le titre de l'article"}}) }}
+	{{ form_row(formArticle.category, {'label': "Catégorie" }) }}
+	{{ form_row(formArticle.content, {'label': "Contenu de l'article", 'attr':{'placeholder':"Entrez le contenu de l'article"}}) }}
+	{{ form_row(formArticle.image, {'label': "Url de l'image", 'attr':{'placeholder':"Entrez l'url de l'image"}}) }}
 
 	{%	if mode %}
     <button type="submit" class="btn btn-primary">Modifier l'article</button>
