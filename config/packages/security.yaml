@@ -16,9 +16,15 @@ security:
             security: false
         main:
             anonymous: true
-            lazy: true
+            # lazy: true
             provider: app_user_provider
+            form_login:
+                login_path: login_secu
+                check_path: login_secu
 
+            logout:
+                path: logout_secu
+                target: blog
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 

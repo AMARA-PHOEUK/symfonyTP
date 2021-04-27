@@ -37,11 +37,15 @@ class BlogController extends AbstractController
 
     public function home()
     {
+        $user = $this->getUser();
+        $firstname  = "";
+        if ($user) {
+            $firstname = $user->getFirstname();
+        }
         return $this->render(
             'blog/home.html.twig',
             [
-                'titre' => "Bienvenue sur le blog de Amara",
-                
+                'firstname' => $firstname
             ]
         );
     }
@@ -107,7 +111,7 @@ class BlogController extends AbstractController
      * 
      */
 
-    public function detailArticle(Article $article)
+    public function detailArticle(Article $article, EntityManagerInterface $manager, Request $request)
     {
         //  le Parameter Converter retourne directement 
         // ouvrir repository des articles
@@ -116,9 +120,34 @@ class BlogController extends AbstractController
 
         // recup article id
         // $article = $repo->find($id);
-        // géréner la vue . ligne 50 on ajoute un tableau en paramètre
+
+        $user = $this->getUser(); // vérifier si user est connecté
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        if ($user) {
+            // $comment = new Comment();
+            // $form = $this->createForm(CommentType::class, $comment);
+
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $comment->setArticle($article) //On associe le commentaire à l'article
+                    ->setCreatedAt(new \DateTime()) // on donne une date au commentaire
+                    ->setAuthor($user->getFirstname());
+                $manager->persist($comment);
+                $manager->flush();
+                return $this->redirectToRoute('detail_art', [
+                    'id' => $article->getId()
+                ]);
+            }
+        }
+        //  mec connecté 
+        // géréner la vue . 
         return $this->render('blog/detail.html.twig', [
             'article' => $article,
+            
+            'formComment' => $form->createView()
         ]);
     }
 
@@ -131,33 +160,5 @@ class BlogController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('blog');
-    }
-
-    /**
-     * @Route("/blog/article/comment/add/{id}", name = "add_comment")
-     */
-    public function addComment(Article $article, Request $request, EntityManagerInterface $manager)
-    {
-        $comment = new Comment();
-
-        $form = $this->createForm(CommentType::class, $comment);
-
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setArticle($article) //On associe le commentaire à l'article
-                ->setCreatedAt(new \DateTime()); // on donne une date au commentaire
-            $manager->persist($comment);
-            $manager->flush();
-            return $this->redirectToRoute('detail_art', [
-                'id' => $article->getId()
-            ]);
-        }
-
-
-        return $this->render('blog/form_comment.html.twig', [
-            'formComment' => $form->createView() //génération de la page qui affiche le commentaire
-        ]);
     }
 }

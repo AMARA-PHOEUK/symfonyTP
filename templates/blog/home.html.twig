@@ -2,15 +2,20 @@
 {% block title %} Mon blog: Home Page{% endblock %}
 
 {% block body%} 
-<h1> {{ titre }} </h1>
+{#{% if not app.user %}
+<h1> Bienvenue sur mon blog</h1>
+{% else %}
+<h1> Bienvenue sur mon blog ,  {{ app.user.firstname}}</h1>
+{% endif %}
+  #}  
+
+<h1>Bienvenue {{ firstname }} sur mon blog</h1>
+
+
 
 <p> blablablbalba</p>
 
-{% if age > 30  %}
-    <h3>Alan! Les Bounty c'est de la merde! </h3>
-{% else %}
-    <h3>Espèce de Millénials, retourne sur Fortnite</h3>
-{% endif %}
+
 
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id accusantium asperiores rem velit sequi cupiditate soluta incidunt, saepe possimus alias facere! Pariatur repellendus amet vero sit assumenda fugiat ab a.
 Itaque, sint? Tempore, dolorum commodi? Iste sit asperiores eum temporibus quae cum inventore eius possimus sint tenetur, necessitatibus enim nisi doloremque dolore minus, aperiam earum nostrum eligendi blanditiis rerum? Inventore.

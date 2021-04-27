@@ -12,7 +12,7 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author')
+            // ->add('author') // on doit le retirer sinon: IL SERA AJOUTÉ A NOUVEAU DANS LE FORMULAIRE COMMENTAIRE
             ->add('content');
     }
 

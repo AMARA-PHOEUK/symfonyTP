@@ -25,14 +25,26 @@
   <div class="collapse navbar-collapse" id="navbarColor03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">Les catégories
+        <a class="nav-link" href="{{ path('blog')}}">Les catégories
           <span class="sr-only">(current)</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">les articles</a>
+        <a class="nav-link" href="{{path ('blog')}}">les articles</a>
       </li>
-
+    
+    {% if not app.user %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('login_secu')}}">Connexion</a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('logout_secu')}}">Déconnexion</a>
+      </li>
+    {% endif %}
+    
+    
+    
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search">
