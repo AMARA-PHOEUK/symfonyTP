@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class BlogController extends AbstractController
 {
     /**
-     * @Route("/blog", name="blog")
+     *@Route("/blog", name="blog")
      */
     public function index(ArticleRepository $repo): Response
     {
@@ -32,7 +32,7 @@ class BlogController extends AbstractController
         ]);
     }
     /**
-     *@Route ("/", name="home")
+     * @Route ("/", name="home")
      */
 
     public function home()
@@ -40,8 +40,8 @@ class BlogController extends AbstractController
         return $this->render(
             'blog/home.html.twig',
             [
-                'titre' => "Bienvenue sur mon blog (titre paramétré)",
-                'age' => 50
+                'titre' => "Bienvenue sur le blog de Amara",
+                
             ]
         );
     }
